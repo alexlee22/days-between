@@ -1,45 +1,45 @@
 #!/usr/bin/env node
 
 // One day in milliseconds
-var oneDay = 24 * 60 * 60 * 1000;
+const oneDay = 24 * 60 * 60 * 1000;
 
 function validateDate(date) {
 	const month_days = [31, 28, 31 ,30 ,31, 30, 31, 31, 30, 31, 30, 31];
 	const charlengths = [2, 2, 4];
 
 	//split into 3
-	var dateList = date.split('/');
-	if (dateList.length != 3) {
+	var dateAsList = date.split('/');
+	if (dateAsList.length != 3) {
 		return { 'correct': false, 'result': "Date was not formatted correctly" };
 	}
 
-	for (let i=0; i < dateList.length; i++){
+	for (let i=0; i < dateAsList.length; i++){
 		//Check digits
-		if (/\D/g.test(dateList[i])){ 
+		if (/\D/g.test(dateAsList[i])){ 
 			return { 'correct': false, 'result': "Found a non-digit" };
 		//Check lengths
-		} else if (dateList[i].length !== charlengths[i]){
+		} else if (dateAsList[i].length !== charlengths[i]){
 			return { 'correct': false, 'result': "Length is not correct" };
 		} else {
-			dateList[i] = parseInt(dateList[i]);
+			dateAsList[i] = parseInt(dateAsList[i]);
 		}
 	}
 
 	// Year, month
-	if (dateList[2] < 1900 || dateList[2] > 2999) {
+	if (dateAsList[2] < 1900 || dateAsList[2] > 2999) {
 		return { 'correct': false, 'result': "Year value is incorrect" };
 	}
-	if (dateList[1] < 1 || dateList[1] > 12) {
+	if (dateAsList[1] < 1 || dateAsList[1] > 12) {
 		return { 'correct': false, 'result': "Month value is incorrect" };
 	}
 	
 	//Check day for leap year
-	if (dateList[1] === 2 && dateList[2] % 4 === 0) {
-		if (dateList[0] < 1 && dataList[0] > month_days[dateList[1]] + 1) {
+	if (dateAsList[1] === 2 && dateAsList[2] % 4 === 0) {
+		if (dateAsList[0] < 1 && dataList[0] > month_days[dateAsList[1]] + 1) {
 			return { 'correct': false, 'result': "Day value is incorrect" };
 		}
 	} else {
-		if (dateList[0] < 1 && dataList[0] > month_days[dateList[1]]) {
+		if (dateAsList[0] < 1 && dataList[0] > month_days[dateAsList[1]]) {
 			return { 'correct': false, 'result': "Day value is incorrect" };
 		}
 	}
@@ -48,10 +48,10 @@ function validateDate(date) {
 }
 
 function parseDate(date) {
-	var dateList = date.split('/');
-	var day = parseInt(dateList[0]);
-	var month = parseInt(dateList[1]) - 1; //month starts at 0 not 1
-	var year = parseInt(dateList[2]);
+	var dateAsList = date.split('/');
+	var day = parseInt(dateAsList[0]);
+	var month = parseInt(dateAsList[1]) - 1; //month starts at 0 not 1
+	var year = parseInt(dateAsList[2]);
 	var parseDate = new Date(Date.UTC(year, month, day)); //remove timezones as not required
 	return parseDate;
 }
