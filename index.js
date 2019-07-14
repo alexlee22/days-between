@@ -4,6 +4,20 @@
 const oneDay = 24 * 60 * 60 * 1000;
 
 function validateDate(date) {
+
+	function isLeapYear(year) {
+		if (year % 4 != 0) {
+			return false
+		}
+		if (year % 100 != 0){
+			return true
+		}
+		if (year % 400 != 0){
+			return false
+		}
+		return True
+	}
+
 	const month_days = [31, 28, 31 ,30 ,31, 30, 31, 31, 30, 31, 30, 31];
 	const charlengths = [2, 2, 4];
 
@@ -34,7 +48,7 @@ function validateDate(date) {
 	}
 	
 	//Check day for leap year
-	if (dateAsList[1] === 2 && dateAsList[2] % 4 === 0) {
+	if (dateAsList[1] === 2 && isLeapYear(dateAsList[2])) {
 		if (dateAsList[0] < 1 && dataList[0] > month_days[dateAsList[1]] + 1) {
 			return { 'correct': false, 'result': "Day value is incorrect" };
 		}
